@@ -1,0 +1,39 @@
+* {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 10px;
+}
+
+.highscores,
+.timer {
+    display: inline;
+    font-size: 20px;
+}
+
+.timer {
+    float: right;    
+}
+
+.main-body {
+    margin: 100px 300px 0px 300px;
+    text-align: center;
+}
+
+.main-text,
+.sub-text {
+    padding-bottom: 10px;
+}
+
+.main-text {
+    font-size: 50px;
+}
+
+#start-button {
+    background-color: rebeccapurple;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 30px;
+    color: white;
+}
