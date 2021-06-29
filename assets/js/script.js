@@ -6,6 +6,8 @@ var $mainText = $(".main-text");
 var $subText = $(".sub-text");
 var $startButton = $("#start-button");
 
+var timerCount = 100;
+
 function init() {
     $mainText.append("Code Quiz");
     $subText.append("This is a coding quiz.");
@@ -13,11 +15,13 @@ function init() {
 }
 
 // Button to start game
-
+$startButton.on("click", startGame);
 
 // Upon button click,
+function startGame() {
 
     // Timer begins
+    startTimer();
 
     // Question displays
 
@@ -39,6 +43,7 @@ function init() {
 
         // Displays next question
 
+}
 
 // Once timer runs out/game ends
 
@@ -51,5 +56,13 @@ function init() {
         // Score is displayed in recent scores
 
     // Game is reset and can be played again
+
+function startTimer() {
+    timerCount = 100;
+    timer = setInterval(function() {
+        timerCount--;
+        $timerCount.text(timerCount);
+    }, 1000);
+}
 
 init();
