@@ -1,3 +1,17 @@
+var $highscores = $(".highscores");
+var $timer = $(".timer");
+var $timerCount = $(".timer-count");
+var $mainBody = $(".main-body");
+var $mainText = $(".main-text");
+var $subText = $(".sub-text");
+var $startButton = $("#start-button");
+
+function init() {
+    $mainText.append("Code Quiz");
+    $subText.append("This is a coding quiz.");
+    $startButton.append("Start");
+}
+
 // Button to start game
 
 
@@ -37,3 +51,5 @@
         // Score is displayed in recent scores
 
     // Game is reset and can be played again
+
+init();
