@@ -1,26 +1,28 @@
-var $highscores = $(".highscores");
-var $timer = $(".timer");
-var $timerCount = $(".timer-count");
-var $mainBody = $(".main-body");
-var $mainText = $(".main-text");
-var $subText = $(".sub-text");
-var $startButton = $("#start-button");
+var highscoresEl = document.querySelector(".highscores");
+var timerEl = document.querySelector(".timer");
+var timerCountEl = document.querySelector(".timer-count");
+var mainBodyEl = document.querySelector(".main-body");
+var mainTextEl = document.querySelector(".main-text");
+var subTextEl = document.querySelector(".sub-text");
+var startButtonEl = document.querySelector("#start-button");
 
-var timerCount = 100;
+var timerCount;
+var timer;
 
 function init() {
-    $mainText.append("Code Quiz");
-    $subText.append("This is a coding quiz.");
-    $startButton.append("Start");
+    mainTextEl.textContent = "Code Quiz";
+    subTextEl.textContent = "This is a coding quiz.";
+    startButtonEl.textContent = "Start";
 }
 
 // Button to start game
-$startButton.on("click", startGame);
+startButtonEl.addEventListener("click", startGame);
 
 // Upon button click,
 function startGame() {
 
     // Timer begins
+    timerCount = 100;
     startTimer();
 
     // Question displays
@@ -58,10 +60,9 @@ function startGame() {
     // Game is reset and can be played again
 
 function startTimer() {
-    timerCount = 100;
     timer = setInterval(function() {
         timerCount--;
-        $timerCount.text(timerCount);
+        timerCountEl.textContent = timerCount;
     }, 1000);
 }
 
