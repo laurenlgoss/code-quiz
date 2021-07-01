@@ -4,6 +4,7 @@ var timerCountEl = document.querySelector(".timer-count");
 var mainBodyEl = document.querySelector(".main-body");
 var mainTextEl = document.querySelector(".main-text");
 var subTextEl = document.querySelector(".sub-text");
+var answersContainerEl = document.querySelector(".answers-container");
 var startButtonEl = document.querySelector("#start-button");
 
 var timerCount;
@@ -26,6 +27,11 @@ function startGame() {
     startTimer();
 
     // Question displays
+    mainTextEl.textContent = "Question 1";
+    subTextEl.setAttribute("style", "display: none");
+
+    var answerArray = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
+    displayAnswers(answerArray);
 
     // Upon answer,
 
@@ -64,6 +70,14 @@ function startTimer() {
         timerCount--;
         timerCountEl.textContent = timerCount;
     }, 1000);
+}
+
+function displayAnswers(answerArray) {
+    for (var i = 0; i < answerArray.length; i++) {
+        var answer = document.createElement("li");
+        answer.textContent = answerArray[i];
+        answersContainerEl.appendChild(answer);
+    }
 }
 
 init();
