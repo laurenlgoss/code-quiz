@@ -30,10 +30,8 @@ function startGame() {
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    mainTextEl.textContent = "Question 1";
-
     var answerArray = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
-    displayAnswers(answerArray);
+    nextQuestion("Question 1", answerArray);
 
     // Upon answer,
 
@@ -74,7 +72,9 @@ function startTimer() {
     }, 1000);
 }
 
-function displayAnswers(answerArray) {
+function nextQuestion(questionString, answerArray) {
+    mainTextEl.textContent = questionString;
+
     for (var i = 0; i < answerArray.length; i++) {
         var answer = document.createElement("button");
         answer.textContent = answerArray[i];
