@@ -17,7 +17,7 @@ body {
 }
 
 .main-body {
-    margin: 100px 300px 0px 300px;
+    margin: 100px 400px 0px 400px;
     text-align: center;
 }
 
@@ -28,6 +28,16 @@ body {
 
 .main-text {
     font-size: 50px;
+}
+
+.answers-container > button {
+    background-color: rebeccapurple;
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 30px;
+    color: white;
+    display: block;
+    margin-bottom: 10px;
 }
 
 #start-button {
