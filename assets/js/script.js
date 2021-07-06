@@ -12,6 +12,7 @@ var timer;
 
 var userScore = 0;
 
+// Track what question user is on
 var questionIndex = 0;
 
 var questionOne = {
@@ -22,7 +23,7 @@ var questionOne = {
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
-}
+};
 var questionTwo = {
     questionString: "Question 2",
     answerArray: [
@@ -31,7 +32,7 @@ var questionTwo = {
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
-}
+};
 var questionThree = {
     questionString: "Question 3",
     answerArray: [
@@ -40,7 +41,7 @@ var questionThree = {
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
-}
+};
 var questionFour = {
     questionString: "Question 4",
     answerArray: [
@@ -49,7 +50,7 @@ var questionFour = {
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
-}
+};
 var questionFive = {
     questionString: "Question 5",
     answerArray: [
@@ -58,10 +59,11 @@ var questionFive = {
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
-}
+};
 
 var questionArray = [questionOne, questionTwo, questionThree, questionFour, questionFive];
 
+// Load introduction text onto page
 function init() {
     mainTextEl.textContent = "Code Quiz";
     subTextEl.textContent = "This is a coding quiz.";
@@ -74,10 +76,10 @@ startButtonEl.addEventListener("click", startGame);
 // Upon button click,
 function startGame() {
 
-    // Timer begins
+    // Begin timer
     startTimer();
 
-    // Question displays
+    // Display first question
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
@@ -123,13 +125,17 @@ function startTimer() {
 }
 
 function nextQuestion(arrayIndex) {
+    // Display question text
     mainTextEl.textContent = questionArray[arrayIndex].questionString;
 
+    // Create button for each answer
     for (var i = 0; i < questionArray[arrayIndex].answerArray.length; i++) {
         var answerEl = document.createElement("button");
+        answerEl.setAttribute("class", "answer-button");
         answerEl.textContent = questionArray[arrayIndex].answerArray[i].string;
         answersContainerEl.appendChild(answerEl);
         
+        // If correct answer clicked call correctAnswer(), else call incorrectAnswer()
         if (questionArray[arrayIndex].answerArray[i].boolean === true) {
             answerEl.addEventListener("click", correctAnswer);
         } else {
@@ -140,6 +146,12 @@ function nextQuestion(arrayIndex) {
 }
 
 function correctAnswer() {
+    // Remove previous answer buttons
+    var answerElArray = document.querySelectorAll(".answer-button");
+    for (var i = 0; i < answerElArray.length; i++) {
+        answerElArray[i].remove();
+    }
+    // Increase user score
     userScore++;
     nextQuestion(questionIndex);
 }
