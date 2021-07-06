@@ -12,6 +12,8 @@ var timer;
 
 var userScore = 0;
 
+var questionIndex = 0;
+
 var questionOne = {
     questionString: "Question 1",
     answerArray: [
@@ -79,7 +81,7 @@ function startGame() {
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    nextQuestion(0);
+    nextQuestion(questionIndex);
 
     // Upon answer,
 
@@ -120,27 +122,26 @@ function startTimer() {
     }, 1000);
 }
 
-function nextQuestion(index) {
-    mainTextEl.textContent = questionArray[index].questionString;
+function nextQuestion(arrayIndex) {
+    mainTextEl.textContent = questionArray[arrayIndex].questionString;
 
-    for (var i = 0; i < questionArray[index].answerArray.length; i++) {
+    for (var i = 0; i < questionArray[arrayIndex].answerArray.length; i++) {
         var answerEl = document.createElement("button");
-        answerEl.textContent = questionArray[index].answerArray[i].string;
+        answerEl.textContent = questionArray[arrayIndex].answerArray[i].string;
         answersContainerEl.appendChild(answerEl);
         
-        if (questionArray[index].answerArray[i].boolean === true) {
+        if (questionArray[arrayIndex].answerArray[i].boolean === true) {
             answerEl.addEventListener("click", correctAnswer);
         } else {
             answerEl.addEventListener("click", incorrectAnswer);
         }
     }
+    questionIndex++;
 }
 
 function correctAnswer() {
     userScore++;
-    console.log(userScore);
-    console.log("correct");
-    nextQuestion(1);
+    nextQuestion(questionIndex);
 }
 
 function incorrectAnswer() {
