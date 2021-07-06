@@ -79,7 +79,7 @@ function startGame() {
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    nextQuestion(questionArray[0]);
+    nextQuestion(0);
 
     // Upon answer,
 
@@ -120,15 +120,15 @@ function startTimer() {
     }, 1000);
 }
 
-function nextQuestion(question) {
-    mainTextEl.textContent = question.questionString;
+function nextQuestion(index) {
+    mainTextEl.textContent = questionArray[index].questionString;
 
-    for (var i = 0; i < question.answerArray.length; i++) {
+    for (var i = 0; i < questionArray[index].answerArray.length; i++) {
         var answerEl = document.createElement("button");
-        answerEl.textContent = question.answerArray[i].string;
+        answerEl.textContent = questionArray[index].answerArray[i].string;
         answersContainerEl.appendChild(answerEl);
         
-        if (question.answerArray[i].boolean === true) {
+        if (questionArray[index].answerArray[i].boolean === true) {
             answerEl.addEventListener("click", correctAnswer);
         } else {
             answerEl.addEventListener("click", incorrectAnswer);
@@ -140,7 +140,7 @@ function correctAnswer() {
     userScore++;
     console.log(userScore);
     console.log("correct");
-    nextQuestion();
+    nextQuestion(1);
 }
 
 function incorrectAnswer() {
