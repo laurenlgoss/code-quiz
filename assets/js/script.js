@@ -99,13 +99,19 @@ function nextQuestion(questionString, answerOneString, answerOneBoolean, answerT
         answersContainerEl.appendChild(answerEl);
         
         if (answerArray[i].boolean === true) {
-        answerEl.addEventListener("click", correctAnswer);
+            answerEl.addEventListener("click", correctAnswer);
+        } else {
+            answerEl.addEventListener("click", incorrectAnswer);
         }
     }
 }
 
 function correctAnswer() {
     console.log("correct");
+}
+
+function incorrectAnswer() {
+    console.log("incorrect");
 }
 
 init();
