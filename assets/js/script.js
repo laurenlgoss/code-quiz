@@ -7,8 +7,58 @@ var subTextEl = document.querySelector(".sub-text");
 var answersContainerEl = document.querySelector(".answers-container");
 var startButtonEl = document.querySelector("#start-button");
 
-var timerCount;
+var timerCount = 100;
 var timer;
+
+var userScore = 0;
+
+var questionOne = {
+    questionString: "Question 1",
+    answerArray: [
+        {string: "Answer 1", boolean: true},
+        {string: "Answer 2", boolean: false},
+        {string: "Answer 3", boolean: false},
+        {string: "Answer 4", boolean: false},
+        ],
+}
+var questionTwo = {
+    questionString: "Question 2",
+    answerArray: [
+        {string: "Answer 1", boolean: true},
+        {string: "Answer 2", boolean: false},
+        {string: "Answer 3", boolean: false},
+        {string: "Answer 4", boolean: false},
+        ],
+}
+var questionThree = {
+    questionString: "Question 3",
+    answerArray: [
+        {string: "Answer 1", boolean: true},
+        {string: "Answer 2", boolean: false},
+        {string: "Answer 3", boolean: false},
+        {string: "Answer 4", boolean: false},
+        ],
+}
+var questionFour = {
+    questionString: "Question 4",
+    answerArray: [
+        {string: "Answer 1", boolean: true},
+        {string: "Answer 2", boolean: false},
+        {string: "Answer 3", boolean: false},
+        {string: "Answer 4", boolean: false},
+        ],
+}
+var questionFive = {
+    questionString: "Question 5",
+    answerArray: [
+        {string: "Answer 1", boolean: true},
+        {string: "Answer 2", boolean: false},
+        {string: "Answer 3", boolean: false},
+        {string: "Answer 4", boolean: false},
+        ],
+}
+
+var questionArray = [questionOne, questionTwo, questionThree, questionFour, questionFive];
 
 function init() {
     mainTextEl.textContent = "Code Quiz";
@@ -23,14 +73,13 @@ startButtonEl.addEventListener("click", startGame);
 function startGame() {
 
     // Timer begins
-    timerCount = 100;
     startTimer();
 
     // Question displays
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    nextQuestion("Question 1", "Answer 1", true, "Answer 2", false, "Answer 3", false, "Answer 4", false);
+    nextQuestion(questionArray[0]);
 
     // Upon answer,
 
@@ -71,34 +120,15 @@ function startTimer() {
     }, 1000);
 }
 
-function nextQuestion(questionString, answerOneString, answerOneBoolean, answerTwoString, answerTwoBoolean, answerThreeString, answerThreeBoolean, answerFourString, answerFourBoolean) {
-    mainTextEl.textContent = questionString;
+function nextQuestion(question) {
+    mainTextEl.textContent = question.questionString;
 
-    var answerOne = {
-        string: answerOneString,
-        boolean: answerOneBoolean,
-    };
-    var answerTwo = {
-        string: answerTwoString,
-        boolean: answerTwoBoolean,
-    };
-    var answerThree = {
-        string: answerThreeString,
-        boolean: answerThreeBoolean,
-    };
-    var answerFour = {
-        string: answerFourString,
-        boolean: answerFourBoolean,
-    };
-
-    var answerArray = [answerOne, answerTwo, answerThree, answerFour];
-
-    for (var i = 0; i < answerArray.length; i++) {
+    for (var i = 0; i < question.answerArray.length; i++) {
         var answerEl = document.createElement("button");
-        answerEl.textContent = answerArray[i].string;
+        answerEl.textContent = question.answerArray[i].string;
         answersContainerEl.appendChild(answerEl);
         
-        if (answerArray[i].boolean === true) {
+        if (question.answerArray[i].boolean === true) {
             answerEl.addEventListener("click", correctAnswer);
         } else {
             answerEl.addEventListener("click", incorrectAnswer);
@@ -107,7 +137,10 @@ function nextQuestion(questionString, answerOneString, answerOneBoolean, answerT
 }
 
 function correctAnswer() {
+    userScore++;
+    console.log(userScore);
     console.log("correct");
+    nextQuestion();
 }
 
 function incorrectAnswer() {
