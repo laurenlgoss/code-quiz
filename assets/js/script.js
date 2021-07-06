@@ -30,20 +30,37 @@ function startGame() {
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    var answerArray = ["Answer 1", "Answer 2", "Answer 3", "Answer 4"];
+    var answerOne = {
+        string: "Answer 1",
+        boolean: true,
+    };
+    var answerTwo = {
+        string: "Answer 2",
+        boolean: false,
+    };
+    var answerThree = {
+        string: "Answer 3",
+        boolean: false,
+    };
+    var answerFour = {
+        string: "Answer 4",
+        boolean: false,
+    };
+
+    var answerArray = [answerOne, answerTwo, answerThree, answerFour];
     nextQuestion("Question 1", answerArray);
 
     // Upon answer,
 
-        // Right answer:
+        // Correct answer:
 
             // Displays "correct"
 
             // Increases user score
 
-        // Wrong answer:
+        // Incorrect answer:
 
-            // Displays "wrong"
+            // Displays "incorrect"
 
             // Decreases user score
                         
@@ -76,10 +93,18 @@ function nextQuestion(questionString, answerArray) {
     mainTextEl.textContent = questionString;
 
     for (var i = 0; i < answerArray.length; i++) {
-        var answer = document.createElement("button");
-        answer.textContent = answerArray[i];
-        answersContainerEl.appendChild(answer);
+        var answerEl = document.createElement("button");
+        answerEl.textContent = answerArray[i].string;
+        answersContainerEl.appendChild(answerEl);
+        
+        if (answerArray[i].boolean === true) {
+        answerEl.addEventListener("click", correctAnswer);
+        }
     }
+}
+
+function correctAnswer() {
+    console.log("correct");
 }
 
 init();
