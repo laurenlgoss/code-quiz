@@ -27,8 +27,8 @@ var questionOne = {
 var questionTwo = {
     questionString: "Question 2",
     answerArray: [
-        {string: "Answer 1", boolean: true},
-        {string: "Answer 2", boolean: false},
+        {string: "Answer 1", boolean: false},
+        {string: "Answer 2", boolean: true},
         {string: "Answer 3", boolean: false},
         {string: "Answer 4", boolean: false},
         ],
@@ -80,7 +80,7 @@ function startGame() {
     startTimer();
 
     // Display first question
-    subTextEl.setAttribute("style", "display: none");
+    subTextEl.textContent = "";
     startButtonEl.setAttribute("style", "display: none");
 
     nextQuestion(questionIndex);
@@ -147,17 +147,26 @@ function nextQuestion(arrayIndex) {
 
 function correctAnswer() {
     // Remove previous answer buttons
-    var answerElArray = document.querySelectorAll(".answer-button");
-    for (var i = 0; i < answerElArray.length; i++) {
-        answerElArray[i].remove();
-    }
+    removeButtons();
+
     // Increase user score
     userScore++;
+
     nextQuestion(questionIndex);
 }
 
 function incorrectAnswer() {
-    console.log("incorrect");
+    // Remove previous answer buttons
+    removeButtons();
+
+    nextQuestion(questionIndex);
+}
+
+function removeButtons() {
+    var answerElArray = document.querySelectorAll(".answer-button");
+    for (var i = 0; i < answerElArray.length; i++) {
+        answerElArray[i].remove();
+    }
 }
 
 init();
