@@ -30,25 +30,7 @@ function startGame() {
     subTextEl.setAttribute("style", "display: none");
     startButtonEl.setAttribute("style", "display: none");
 
-    var answerOne = {
-        string: "Answer 1",
-        boolean: true,
-    };
-    var answerTwo = {
-        string: "Answer 2",
-        boolean: false,
-    };
-    var answerThree = {
-        string: "Answer 3",
-        boolean: false,
-    };
-    var answerFour = {
-        string: "Answer 4",
-        boolean: false,
-    };
-
-    var answerArray = [answerOne, answerTwo, answerThree, answerFour];
-    nextQuestion("Question 1", answerArray);
+    nextQuestion("Question 1", "Answer 1", true, "Answer 2", false, "Answer 3", false, "Answer 4", false);
 
     // Upon answer,
 
@@ -89,8 +71,27 @@ function startTimer() {
     }, 1000);
 }
 
-function nextQuestion(questionString, answerArray) {
+function nextQuestion(questionString, answerOneString, answerOneBoolean, answerTwoString, answerTwoBoolean, answerThreeString, answerThreeBoolean, answerFourString, answerFourBoolean) {
     mainTextEl.textContent = questionString;
+
+    var answerOne = {
+        string: answerOneString,
+        boolean: answerOneBoolean,
+    };
+    var answerTwo = {
+        string: answerTwoString,
+        boolean: answerTwoBoolean,
+    };
+    var answerThree = {
+        string: answerThreeString,
+        boolean: answerThreeBoolean,
+    };
+    var answerFour = {
+        string: answerFourString,
+        boolean: answerFourBoolean,
+    };
+
+    var answerArray = [answerOne, answerTwo, answerThree, answerFour];
 
     for (var i = 0; i < answerArray.length; i++) {
         var answerEl = document.createElement("button");
