@@ -125,28 +125,32 @@ function startTimer() {
 }
 
 function nextQuestion(arrayIndex) {
-    // Display question text
-    mainTextEl.textContent = questionArray[arrayIndex].questionString;
-
-    // Create button for each answer
-    for (var i = 0; i < questionArray[arrayIndex].answerArray.length; i++) {
-        var answerEl = document.createElement("button");
-        answerEl.setAttribute("class", "answer-button");
-        answerEl.textContent = questionArray[arrayIndex].answerArray[i].string;
-        answersContainerEl.appendChild(answerEl);
+    if (questionIndex < questionArray.length) {
+        questionIndex++;
         
-        // If correct answer clicked call correctAnswer(), else call incorrectAnswer()
-        if (questionArray[arrayIndex].answerArray[i].boolean === true) {
-            answerEl.addEventListener("click", correctAnswer);
-        } else {
-            answerEl.addEventListener("click", incorrectAnswer);
+        // Display question text
+        mainTextEl.textContent = questionArray[arrayIndex].questionString;
+
+        // Create button for each answer
+        for (var i = 0; i < questionArray[arrayIndex].answerArray.length; i++) {
+            var answerEl = document.createElement("button");
+            answerEl.setAttribute("class", "answer-button");
+            answerEl.textContent = questionArray[arrayIndex].answerArray[i].string;
+            answersContainerEl.appendChild(answerEl);
+            
+            // If correct answer clicked call correctAnswer(), else call incorrectAnswer()
+            if (questionArray[arrayIndex].answerArray[i].boolean === true) {
+                answerEl.addEventListener("click", correctAnswer);
+            } else {
+                answerEl.addEventListener("click", incorrectAnswer);
+            }
         }
+    } else {
+        console.log("end");
     }
-    questionIndex++;
 }
 
 function correctAnswer() {
-    // Remove previous answer buttons
     removeButtons();
 
     // Increase user score
@@ -156,12 +160,12 @@ function correctAnswer() {
 }
 
 function incorrectAnswer() {
-    // Remove previous answer buttons
     removeButtons();
 
     nextQuestion(questionIndex);
 }
 
+// Remove answer buttons on page
 function removeButtons() {
     var answerElArray = document.querySelectorAll(".answer-button");
     for (var i = 0; i < answerElArray.length; i++) {
