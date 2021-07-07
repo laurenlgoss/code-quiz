@@ -7,7 +7,7 @@ var subTextEl = document.querySelector(".sub-text");
 var answersContainerEl = document.querySelector(".answers-container");
 var startButtonEl = document.querySelector("#start-button");
 
-var timerCount = 100;
+var timerCount = 50;
 var timer;
 
 var userScore = 0;
@@ -68,6 +68,7 @@ function init() {
     mainTextEl.textContent = "Code Quiz";
     subTextEl.textContent = "This is a coding quiz.";
     startButtonEl.textContent = "Start";
+    timerCountEl.textContent = timerCount;
 }
 
 // Button to start game
@@ -84,38 +85,7 @@ function startGame() {
     startButtonEl.setAttribute("style", "display: none");
 
     nextQuestion(questionIndex);
-
-    // Upon answer,
-
-        // Correct answer:
-
-            // Displays "correct"
-
-            // Increases user score
-
-        // Incorrect answer:
-
-            // Displays "incorrect"
-
-            // Decreases user score
-                        
-            // Subtracts time from timer
-
-        // Displays next question
-
 }
-
-// Once timer runs out/game ends
-
-    // Score is totaled and displayed
-
-    // User inputs initials
-
-        // Score/initials are saved
-
-        // Score is displayed in recent scores
-
-    // Game is reset and can be played again
 
 function startTimer() {
     timer = setInterval(function() {
@@ -124,6 +94,7 @@ function startTimer() {
     }, 1000);
 }
 
+// Display questions/answers on page
 function nextQuestion(arrayIndex) {
     if (questionIndex < questionArray.length) {
         questionIndex++;
@@ -146,7 +117,7 @@ function nextQuestion(arrayIndex) {
             }
         }
     } else {
-        console.log("end");
+        endGame();
     }
 }
 
@@ -162,6 +133,9 @@ function correctAnswer() {
 function incorrectAnswer() {
     removeButtons();
 
+    // Subtract time from timer
+    timerCount -= 10;
+
     nextQuestion(questionIndex);
 }
 
@@ -172,5 +146,41 @@ function removeButtons() {
         answerElArray[i].remove();
     }
 }
+
+function endGame() {
+    mainTextEl.textContent = "Game Over"
+
+    // Display user score
+    subTextEl.textContent = "Final score: " + userScore + "/" + questionArray.length;
+
+    // Create form for user initials
+    var formEl = document.createElement("form");
+    formEl.setAttribute("id", "user-intials-form");
+    mainBodyEl.appendChild(formEl);
+
+    var userInitials = document.createElement("input");
+    userInitials.setAttribute("type", "text");
+    userInitials.setAttribute("placeholder", "User initials here");
+
+    formEl.appendChild(userInitials);
+
+    // Create end button
+    var endButtonEl = document.createElement("button");
+    endButtonEl.setAttribute("id", "end-button");
+    endButtonEl.textContent = "Return to Home"
+    mainBodyEl.appendChild(endButtonEl);
+}
+
+// Once timer runs out/game ends
+
+    // Score is totaled and displayed
+
+    // User inputs initials
+
+        // Score/initials are saved
+
+        // Score is displayed in recent scores
+
+    // Game is reset and can be played again
 
 init();
