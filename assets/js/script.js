@@ -7,6 +7,10 @@ var subTextEl = document.querySelector(".sub-text");
 var answersContainerEl = document.querySelector(".answers-container");
 var startButtonEl = document.querySelector("#start-button");
 
+var formEl = document.createElement("form");
+var userInitialsEl = document.createElement("input");
+var resetButtonEl = document.createElement("button");
+
 var timerCount = 50;
 var timer;
 
@@ -110,7 +114,7 @@ function nextQuestion(arrayIndex) {
             answersContainerEl.appendChild(answerEl);
             
             // If correct answer clicked call correctAnswer(), else call incorrectAnswer()
-            if (questionArray[arrayIndex].answerArray[i].boolean === true) {
+            if (questionArray[arrayIndex].answerArray[i].boolean) {
                 answerEl.addEventListener("click", correctAnswer);
             } else {
                 answerEl.addEventListener("click", incorrectAnswer);
@@ -139,7 +143,7 @@ function incorrectAnswer() {
     nextQuestion(questionIndex);
 }
 
-// Remove answer buttons on page
+// Remove answer buttons from page
 function removeButtons() {
     var answerElArray = document.querySelectorAll(".answer-button");
     for (var i = 0; i < answerElArray.length; i++) {
@@ -154,21 +158,32 @@ function endGame() {
     subTextEl.textContent = "Final score: " + userScore + "/" + questionArray.length;
 
     // Create form for user initials
-    var formEl = document.createElement("form");
-    formEl.setAttribute("id", "user-intials-form");
+    formEl.setAttribute("id", "user-initials-form");
     mainBodyEl.appendChild(formEl);
 
-    var userInitials = document.createElement("input");
-    userInitials.setAttribute("type", "text");
-    userInitials.setAttribute("placeholder", "User initials here");
+    userInitialsEl.setAttribute("type", "text");
+    userInitialsEl.setAttribute("placeholder", "User initials here");
+    userInitialsEl.setAttribute("id", "user-initials-input");
 
-    formEl.appendChild(userInitials);
+    formEl.appendChild(userInitialsEl);
 
-    // Create end button
-    var endButtonEl = document.createElement("button");
-    endButtonEl.setAttribute("id", "end-button");
-    endButtonEl.textContent = "Return to Home"
-    mainBodyEl.appendChild(endButtonEl);
+    // Create reset button
+    resetButtonEl.setAttribute("id", "reset-button");
+    resetButtonEl.textContent = "Return to Home"
+    mainBodyEl.appendChild(resetButtonEl);
+    resetButtonEl.addEventListener("click", resetGame);
+}
+
+function resetGame() {
+    // Remove form and reset button from page
+    userInitialsEl.remove();
+    formEl.remove();
+    resetButtonEl.remove();
+
+    startButtonEl.setAttribute("style", "display: inline");
+
+    // Return to home screen
+    init();
 }
 
 // Once timer runs out/game ends

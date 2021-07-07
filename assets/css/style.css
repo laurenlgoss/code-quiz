@@ -41,7 +41,7 @@ body {
 }
 
 #start-button,
-#end-button {
+#reset-button {
     background-color: rebeccapurple;
     padding: 5px 20px;
     border-radius: 5px;
