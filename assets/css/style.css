@@ -6,6 +6,7 @@ body {
     margin: 10px;
 }
 
+/* Header */
 .highscore-container,
 .timer {
     display: inline;
@@ -22,6 +23,7 @@ body {
     left: 1350px; 
 }
 
+/* Body */
 .main-body {
     margin: 100px 400px 0px 400px;
     text-align: center;
@@ -36,6 +38,7 @@ body {
     font-size: 50px;
 }
 
+/* Buttons */
 .answer-button {
     background-color: rebeccapurple;
     padding: 5px 20px;
@@ -53,4 +56,13 @@ body {
     border-radius: 5px;
     font-size: 30px;
     color: white;
+}
+
+#user-initials-form {
+    padding-bottom: 10px;
+}
+
+#user-initials-input {
+    padding: 5px 50px;
+    text-align: center;
 }

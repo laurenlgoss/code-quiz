@@ -85,7 +85,7 @@ function renderHighscore() {
     if (highscoreStorage !== null) {
         var highscoreEl = document.createElement("li");
         highscoreEl.setAttribute("class", "highscores");
-        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score;
+        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score + "/" + questionArray.length;
         highscoresContainer.appendChild(highscoreEl);
     }
 }
@@ -94,7 +94,6 @@ function renderHighscore() {
 startButtonEl.addEventListener("click", startGame);
 
 function startGame() {
-
     startTimer();
 
     // Display first question
@@ -110,7 +109,7 @@ function startTimer() {
         timerCountEl.textContent = timerCount;
 
         // When timer reaches zero, reset timer and end game
-        if (timerCount === 0) {
+        if (timerCount <= 0) {
             clearInterval(timer);
             timerCount = 50;
 
