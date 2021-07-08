@@ -6,14 +6,14 @@ body {
     margin: 10px;
 }
 
-.highscores,
+.highscore-container,
 .timer {
     display: inline;
     font-size: 20px;
 }
 
 .timer {
-    float: right;    
+    float: right;   
 }
 
 .main-body {

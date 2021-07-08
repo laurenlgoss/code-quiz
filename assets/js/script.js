@@ -1,4 +1,4 @@
-var highscoresEl = document.querySelector(".highscores");
+var highscoresContainer = document.querySelector(".highscore-container");
 var timerEl = document.querySelector(".timer");
 var timerCountEl = document.querySelector(".timer-count");
 var mainBodyEl = document.querySelector(".main-body");
@@ -22,47 +22,47 @@ var questionIndex = 0;
 var questionOne = {
     questionString: "Question 1",
     answerArray: [
-        {string: "Answer 1", boolean: true},
-        {string: "Answer 2", boolean: false},
-        {string: "Answer 3", boolean: false},
-        {string: "Answer 4", boolean: false},
-        ],
+        { string: "Answer 1", boolean: true },
+        { string: "Answer 2", boolean: false },
+        { string: "Answer 3", boolean: false },
+        { string: "Answer 4", boolean: false },
+    ],
 };
 var questionTwo = {
     questionString: "Question 2",
     answerArray: [
-        {string: "Answer 1", boolean: false},
-        {string: "Answer 2", boolean: true},
-        {string: "Answer 3", boolean: false},
-        {string: "Answer 4", boolean: false},
-        ],
+        { string: "Answer 1", boolean: false },
+        { string: "Answer 2", boolean: true },
+        { string: "Answer 3", boolean: false },
+        { string: "Answer 4", boolean: false },
+    ],
 };
 var questionThree = {
     questionString: "Question 3",
     answerArray: [
-        {string: "Answer 1", boolean: true},
-        {string: "Answer 2", boolean: false},
-        {string: "Answer 3", boolean: false},
-        {string: "Answer 4", boolean: false},
-        ],
+        { string: "Answer 1", boolean: true },
+        { string: "Answer 2", boolean: false },
+        { string: "Answer 3", boolean: false },
+        { string: "Answer 4", boolean: false },
+    ],
 };
 var questionFour = {
     questionString: "Question 4",
     answerArray: [
-        {string: "Answer 1", boolean: true},
-        {string: "Answer 2", boolean: false},
-        {string: "Answer 3", boolean: false},
-        {string: "Answer 4", boolean: false},
-        ],
+        { string: "Answer 1", boolean: true },
+        { string: "Answer 2", boolean: false },
+        { string: "Answer 3", boolean: false },
+        { string: "Answer 4", boolean: false },
+    ],
 };
 var questionFive = {
     questionString: "Question 5",
     answerArray: [
-        {string: "Answer 1", boolean: true},
-        {string: "Answer 2", boolean: false},
-        {string: "Answer 3", boolean: false},
-        {string: "Answer 4", boolean: false},
-        ],
+        { string: "Answer 1", boolean: true },
+        { string: "Answer 2", boolean: false },
+        { string: "Answer 3", boolean: false },
+        { string: "Answer 4", boolean: false },
+    ],
 };
 
 var questionArray = [questionOne, questionTwo, questionThree, questionFour, questionFive];
@@ -73,6 +73,8 @@ function init() {
     subTextEl.textContent = "This is a coding quiz.";
     startButtonEl.textContent = "Start";
     timerCountEl.textContent = timerCount;
+
+    renderHighscore();
 }
 
 // Button to start game
@@ -92,7 +94,7 @@ function startGame() {
 }
 
 function startTimer() {
-    timer = setInterval(function() {
+    timer = setInterval(function () {
         timerCount--;
         timerCountEl.textContent = timerCount;
     }, 1000);
@@ -102,7 +104,7 @@ function startTimer() {
 function nextQuestion(arrayIndex) {
     if (questionIndex < questionArray.length) {
         questionIndex++;
-        
+
         // Display question text
         mainTextEl.textContent = questionArray[arrayIndex].questionString;
 
@@ -112,7 +114,7 @@ function nextQuestion(arrayIndex) {
             answerEl.setAttribute("class", "answer-button");
             answerEl.textContent = questionArray[arrayIndex].answerArray[i].string;
             answersContainerEl.appendChild(answerEl);
-            
+
             // If correct answer clicked call correctAnswer(), else call incorrectAnswer()
             if (questionArray[arrayIndex].answerArray[i].boolean) {
                 answerEl.addEventListener("click", correctAnswer);
@@ -175,6 +177,13 @@ function endGame() {
 }
 
 function resetGame() {
+    var highscore = {
+        initials: userInitialsEl.value.trim(),
+        score: userScore,
+    };
+
+    localStorage.setItem("highscore", JSON.stringify(highscore));
+
     // Remove form and reset button from page
     userInitialsEl.remove();
     formEl.remove();
@@ -182,20 +191,32 @@ function resetGame() {
 
     startButtonEl.setAttribute("style", "display: inline");
 
+    userScore = 0;
+
     // Return to home screen
     init();
 }
 
+function renderHighscore() {
+    var highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
+    if (highscoreStorage !== null) {
+        var highscoreEl = document.createElement("li");
+        highscoreEl.setAttribute("class", "highscores");
+        highscoreEl.textContent = highscoreStorage.initials + ": " + highscoreStorage.score;
+        highscoresContainer.appendChild(highscoreEl);
+    }
+}
+
 // Once timer runs out/game ends
 
-    // Score is totaled and displayed
+// Score is totaled and displayed
 
-    // User inputs initials
+// User inputs initials
 
-        // Score/initials are saved
+// Score/initials are saved
 
-        // Score is displayed in recent scores
+// Score is displayed in recent scores
 
-    // Game is reset and can be played again
+// Game is reset and can be played again
 
 init();
