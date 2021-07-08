@@ -74,6 +74,8 @@ function init() {
     startButtonEl.textContent = "Start";
     timerCountEl.textContent = timerCount;
 
+    questionIndex = 0;
+
     renderHighscore();
 }
 
@@ -182,6 +184,7 @@ function resetGame() {
         score: userScore,
     };
 
+    // Save highscore in local storage
     localStorage.setItem("highscore", JSON.stringify(highscore));
 
     // Remove form and reset button from page
@@ -197,26 +200,17 @@ function resetGame() {
     init();
 }
 
+// Render last highscore on page
 function renderHighscore() {
     var highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
+
+    // Check if any highscores in local storage
     if (highscoreStorage !== null) {
         var highscoreEl = document.createElement("li");
         highscoreEl.setAttribute("class", "highscores");
-        highscoreEl.textContent = highscoreStorage.initials + ": " + highscoreStorage.score;
+        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score;
         highscoresContainer.appendChild(highscoreEl);
     }
 }
-
-// Once timer runs out/game ends
-
-// Score is totaled and displayed
-
-// User inputs initials
-
-// Score/initials are saved
-
-// Score is displayed in recent scores
-
-// Game is reset and can be played again
 
 init();
