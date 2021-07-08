@@ -10,6 +10,8 @@ body {
 .timer {
     display: inline;
     font-size: 20px;
+    position: fixed;
+    top: 10px;
 }
 
 .highscores {
@@ -17,9 +19,7 @@ body {
 }
 
 .timer {
-    position: fixed;
     left: 1350px; 
-    top: 10px;   
 }
 
 .main-body {

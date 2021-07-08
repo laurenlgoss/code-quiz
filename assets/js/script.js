@@ -74,18 +74,27 @@ function init() {
     startButtonEl.textContent = "Start";
     timerCountEl.textContent = timerCount;
 
-    questionIndex = 0;
-
     renderHighscore();
+}
+
+// Render last highscore on page
+function renderHighscore() {
+    var highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
+
+    // Check if any highscores in local storage
+    if (highscoreStorage !== null) {
+        var highscoreEl = document.createElement("li");
+        highscoreEl.setAttribute("class", "highscores");
+        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score;
+        highscoresContainer.appendChild(highscoreEl);
+    }
 }
 
 // Button to start game
 startButtonEl.addEventListener("click", startGame);
 
-// Upon button click,
 function startGame() {
 
-    // Begin timer
     startTimer();
 
     // Display first question
@@ -99,6 +108,15 @@ function startTimer() {
     timer = setInterval(function () {
         timerCount--;
         timerCountEl.textContent = timerCount;
+
+        // When timer reaches zero, reset timer and end game
+        if (timerCount === 0) {
+            clearInterval(timer);
+            timerCount = 50;
+
+            removeButtons();
+            endGame();
+        }
     }, 1000);
 }
 
@@ -194,23 +212,12 @@ function resetGame() {
 
     startButtonEl.setAttribute("style", "display: inline");
 
+    // Reset question index and user score
+    questionIndex = 0;
     userScore = 0;
 
     // Return to home screen
     init();
-}
-
-// Render last highscore on page
-function renderHighscore() {
-    var highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
-
-    // Check if any highscores in local storage
-    if (highscoreStorage !== null) {
-        var highscoreEl = document.createElement("li");
-        highscoreEl.setAttribute("class", "highscores");
-        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score;
-        highscoresContainer.appendChild(highscoreEl);
-    }
 }
 
 init();
