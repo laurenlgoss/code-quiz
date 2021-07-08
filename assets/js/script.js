@@ -20,48 +20,48 @@ var userScore = 0;
 var questionIndex = 0;
 
 var questionOne = {
-    questionString: "Question 1",
+    questionString: "How do you comment JavaScript?",
     answerArray: [
-        { string: "Answer 1", boolean: true },
-        { string: "Answer 2", boolean: false },
-        { string: "Answer 3", boolean: false },
-        { string: "Answer 4", boolean: false },
+        { string: "// Comment", boolean: true },
+        { string: "/* Comment */", boolean: false },
+        { string: "<!-- Comment -->", boolean: false },
+        { string: "// Comment //", boolean: false },
     ],
 };
 var questionTwo = {
-    questionString: "Question 2",
+    questionString: "What character goes at the end of every line in CSS and JavaScript?",
     answerArray: [
-        { string: "Answer 1", boolean: false },
-        { string: "Answer 2", boolean: true },
-        { string: "Answer 3", boolean: false },
-        { string: "Answer 4", boolean: false },
+        { string: ":", boolean: false },
+        { string: ";", boolean: true },
+        { string: ",", boolean: false },
+        { string: ".", boolean: false },
     ],
 };
 var questionThree = {
-    questionString: "Question 3",
+    questionString: "How do you enclose an array?",
     answerArray: [
-        { string: "Answer 1", boolean: true },
-        { string: "Answer 2", boolean: false },
-        { string: "Answer 3", boolean: false },
-        { string: "Answer 4", boolean: false },
+        { string: "()", boolean: false },
+        { string: "{}", boolean: false },
+        { string: "<>", boolean: false },
+        { string: "[]", boolean: true },
     ],
 };
 var questionFour = {
-    questionString: "Question 4",
+    questionString: "Where do you typically link your style sheet in HTML?",
     answerArray: [
-        { string: "Answer 1", boolean: true },
-        { string: "Answer 2", boolean: false },
-        { string: "Answer 3", boolean: false },
-        { string: "Answer 4", boolean: false },
+        { string: "body", boolean: false },
+        { string: "main", boolean: false },
+        { string: "head", boolean: true },
+        { string: "div", boolean: false },
     ],
 };
 var questionFive = {
-    questionString: "Question 5",
+    questionString: "What positioning in CSS allows the element to be out of flow?",
     answerArray: [
-        { string: "Answer 1", boolean: true },
-        { string: "Answer 2", boolean: false },
-        { string: "Answer 3", boolean: false },
-        { string: "Answer 4", boolean: false },
+        { string: "Absolute", boolean: false },
+        { string: "Fixed", boolean: true },
+        { string: "Relative", boolean: false },
+        { string: "Static", boolean: false },
     ],
 };
 
@@ -70,7 +70,7 @@ var questionArray = [questionOne, questionTwo, questionThree, questionFour, ques
 // Load introduction text onto page
 function init() {
     mainTextEl.textContent = "Code Quiz";
-    subTextEl.textContent = "This is a coding quiz.";
+    subTextEl.textContent = "This is a multiple-choice coding quiz testing your knowledge of HTML, CSS, and JavaScript. You will be given " + questionArray.length + " questions with " + timerCount + " seconds to complete the quiz. If you choose a wrong answer, 10 seconds will be subtracted from the timer. The quiz ends either when all questions are answered or the timer runs out.";
     startButtonEl.textContent = "Start";
     timerCountEl.textContent = timerCount;
 
@@ -110,9 +110,6 @@ function startTimer() {
 
         // When timer reaches zero, reset timer and end game
         if (timerCount <= 0) {
-            clearInterval(timer);
-            timerCount = 50;
-
             removeButtons();
             endGame();
         }
@@ -173,6 +170,9 @@ function removeButtons() {
 }
 
 function endGame() {
+    clearInterval(timer);
+    timerCount = 50;
+
     mainTextEl.textContent = "Game Over"
 
     // Display user score
