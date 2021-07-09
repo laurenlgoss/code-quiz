@@ -7,7 +7,7 @@ body {
 }
 
 /* Header */
-.highscore-container,
+.highscore-text,
 .timer {
     display: inline;
     font-size: 20px;
@@ -17,6 +17,7 @@ body {
 
 .highscores {
     list-style-type: none;
+    margin-top: 2em;
 }
 
 .timer {

@@ -11,6 +11,10 @@ var formEl = document.createElement("form");
 var userInitialsEl = document.createElement("input");
 var resetButtonEl = document.createElement("button");
 
+// Create highscore array from local storage
+var highscoreArray = JSON.parse(localStorage.getItem("highscore")) || [];
+
+var timeRemaining;
 var timerCount = 50;
 var timer;
 
@@ -77,17 +81,25 @@ function init() {
     renderHighscore();
 }
 
-// Render last highscore on page
 function renderHighscore() {
-    var highscoreStorage = JSON.parse(localStorage.getItem("highscore"));
+    // Sort highscores by descending score
+    highscoreArray.sort(function(a, b) {
+        return b.score - a.score;
+    })
 
-    // Check if any highscores in local storage
-    if (highscoreStorage !== null) {
-        var highscoreEl = document.createElement("li");
-        highscoreEl.setAttribute("class", "highscores");
-        highscoreEl.textContent = highscoreStorage.initials + " " + highscoreStorage.score + "/" + questionArray.length;
-        highscoresContainer.appendChild(highscoreEl);
-    }
+    // Clear previous highscores on page
+    highscoresContainer.innerHTML = "";
+
+    // Take only top 5 highscores
+    var limitedArray = highscoreArray.slice(0, 5);
+
+    // Render highscores to page
+    limitedArray.forEach(function(highscore) {
+        var li = document.createElement("li");
+        li.setAttribute("class", "highscores");
+        li.textContent = highscore.initials + " " + highscore.score;
+        highscoresContainer.appendChild(li);
+    })
 }
 
 // Button to start game
@@ -108,7 +120,7 @@ function startTimer() {
         timerCount--;
         timerCountEl.textContent = timerCount;
 
-        // When timer reaches zero, reset timer and end game
+        // End game when timer reaches zero
         if (timerCount <= 0) {
             removeButtons();
             endGame();
@@ -157,6 +169,7 @@ function incorrectAnswer() {
 
     // Subtract time from timer
     timerCount -= 10;
+    timerCountEl.textContent = timerCount;
 
     nextQuestion(questionIndex);
 }
@@ -170,13 +183,16 @@ function removeButtons() {
 }
 
 function endGame() {
+    timeRemaining = timerCount;
+
+    // Reset timer
     clearInterval(timer);
     timerCount = 50;
 
     mainTextEl.textContent = "Game Over"
 
     // Display user score
-    subTextEl.textContent = "Final score: " + userScore + "/" + questionArray.length;
+    subTextEl.textContent = "You got " + userScore + "/" + questionArray.length + " correct. Your final score is: " + userScore * timeRemaining;
 
     // Create form for user initials
     formEl.setAttribute("id", "user-initials-form");
@@ -198,11 +214,14 @@ function endGame() {
 function resetGame() {
     var highscore = {
         initials: userInitialsEl.value.trim(),
-        score: userScore,
+        score: userScore * timeRemaining,
     };
 
+    // Push last highscore into highscore array
+    highscoreArray.push(highscore);
+
     // Save highscore in local storage
-    localStorage.setItem("highscore", JSON.stringify(highscore));
+    localStorage.setItem("highscore", JSON.stringify(highscoreArray));
 
     // Remove form and reset button from page
     userInitialsEl.remove();
