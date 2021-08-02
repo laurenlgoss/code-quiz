@@ -33,3 +33,11 @@ https://laurenlgoss.github.io/code-quiz/
 ### Question Screen
 
 ![Code Quiz Question Screen](./assets/images/code-quiz-question.png)
+
+## Developer Contact Information
+
+* Phone: (828)409-3012
+
+* [Email](laurenlgoss98@gmail.com)
+
+* [LinkedIn](https://www.linkedin.com/in/laurenlgoss/)
